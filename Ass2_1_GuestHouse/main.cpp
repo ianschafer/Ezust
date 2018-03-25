@@ -5,14 +5,17 @@
  Author: Ian Schafer
  Date: March 2018
 */
+
+#ifndef BOOKINGLIST_H
+#define BOOKINGLIST_H
+
 #include <QCoreApplication>
-#include <QStringList>
-#include <QString>
 #include <QTextStream>
 #include <QFile>
-#include <QDate>
 #include <QDebug>
 #include "bookinglist.h"
+
+using namespace std;
 
 /*TO DO:
  1. Are there any rooms available (roomsAvailable) on QDate?
@@ -25,12 +28,9 @@
 
 QTextStream cout(stdout);
 QTextStream cin(stdin);
-enum Selections {READ=1, ADD, FIND, REMOVE, SAVE, LIST, QUIT};
-//enum Types {BOOK, REFERENCEBOOK, TEXTBOOK, DVD, FILM, DATADVD};
-//const QStringList TYPES = (QStringList() << "BOOK" << "REFERENCEBOOK"
-   //<< "TEXTBOOK" << "DVD" << "FILM" << "DATADVD");
-//bool saved(false);
-//end
+enum Selections {Availability=1, ADD, QUIT};
+bool saved(false);
+
 //start id=lclmenu
 Selections nextTask() {
    int choice;
@@ -44,6 +44,7 @@ Selections nextTask() {
      choice = response.toInt();
    } while(choice !=3);
 
+   cout << "End Selections" << endl;
    return static_cast<Selections>(choice);
 }
 
@@ -52,6 +53,9 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
+    nextTask();
 
     return a.exec();
 }
+
+#endif // BOOKINGLIST_H
