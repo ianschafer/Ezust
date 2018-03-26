@@ -18,54 +18,56 @@ public:
     static const double  SHARING_PPPN;
 
 private:
-    Booking (class Person* c, QDate a, QDate d) : m_Contact(c), m_Arrivaldate(a), m_DepartureDate(d) {}
+    Booking (class Person* &c, QDate a, QDate d);
     Booking(const Booking&);
-    Booking(QStringList& bookinglist);
-    Person*   m_Contact;
+//    Booking(QStringList& bookinglist);
+    Person*  m_Contact;
     QDate    m_Arrivaldate;
     QDate    m_DepartureDate;
 };
 //end
 
 //start id=derivedclassdefs
-class Person : public Booking {
+//class Person : public Booking {
 
-public:
-    Person(QString n, QString c, QString e);
-    Person(const Person&);
-    Person(QStringList& bookinglist);
-    virtual QString toString() const;
+//public:
+//    Person (QString *n, QString *c, QString *e);
+////    Person(const Person& person);
+//    Person(QStringList& bookinglist);
+//    virtual QString toString() const;
 
-private:
-   QString m_Name;
-   QString m_ContactNo;
-   QString m_Email;
-};
+//private:
+//   QString m_Name;
+//   QString m_ContactNo;
+//   QString m_Email;
+//};
 
-class Single : public Person {
-public:
-    Single(class Person* c, QDate a, QDate d, class Person* g) : m_Guest(g) {}
-    Single(const Single&);
-    Single(QStringList& bookinglist);
-    QString toString() const;
-    double rate();
+//class Single : public Person {
 
-private:
-    Person*  m_Guest;
-};
+//public:
+//    Single(class Person* c, QDate *a, QDate *d, class Person* g);// : m_Guest(g) {}
+////    Single(const Single& single);
+//    Single(QStringList& bookinglist);
+//    QString toString() const;
+//    double rate();
 
-class Sharing : public Person {
-public:
-    Sharing(class Person* c, QDate a, QDate d, class Person* g1, class Person* g2) : m_Guest1(g1), m_Guest2(g2) {}
-    Sharing(const Sharing&);
-    Sharing(QStringList& bookinglist);
-    QString toString() const;
-    double rate();
+//private:
+//    Person*  m_Guest;
+//};
 
-private:
-   Person*  m_Guest1;
-   Person*  m_Guest2;
-};
+//class Sharing : public Person {
+
+//public:
+//    Sharing(class Person* c, QDate *a, QDate *d, class Person* g1, class Person* g2);// : m_Guest1(g1), m_Guest2(g2) {}
+////    Sharing(const Sharing& sharing);
+//    Sharing(QStringList& bookinglist);
+//    QString toString() const;
+//    double rate();
+
+//private:
+//   Person*  m_Guest1;
+//   Person*  m_Guest2;
+//};
 //end
 
 //start id=QListdef

@@ -3,6 +3,8 @@
 
 #include "bookinglist.h"
 
+    using namespace std;
+
 //Start class BookingList implementations
 BookingList::~BookingList()
 {
@@ -77,57 +79,57 @@ bool Booking::booked(QDate d)
 
 }
 
-Booking::Booking(class Person* c, QDate a, QDate d)
+Booking::Booking(class Person* &c, QDate a, QDate d)
 {
 
 }
 // end Booking
 
 //start class Person implementations
-Person::Person(QString n, QString c, QString e)
-{
+//Person::Person(QString *n, QString *c, QString *e)
+//{
 
-}
+//}
 
-QString Person::toString() const
-{
+//QString Person::toString() const
+//{
 
-}
+//}
 //end Person
 
 //start class Single implementations
-Single::Single(class Person* c, QDate a, QDate d, class Person* g)
-{
+//Single::Single(class Person* c, QDate a, QDate d, class Person* g)
+//{
 
-}
+//}
 
-QString Single::toString() const
-{
+//QString Single::toString() const
+//{
 
-}
+//}
 
-double Single::rate()
-{
+//double Single::rate()
+//{
 
-}
+//}
 
 //end Single
 
 //start class Sharing implementations
-Sharing::Sharing(class Person* c, QDate a, QDate d, class Person* g1, class Person* g2)
-{
+//Sharing::Sharing(class Person* c, QDate a, QDate d, class Person* g1, class Person* g2)
+//{
 
-}
+//}
 
-QString Sharing::toString() const
-{
+//QString Sharing::toString() const
+//{
 
-}
+//}
 
-double Sharing::rate()
-{
+//double Sharing::rate()
+//{
 
-}
+//}
 
 
 //end Sharing
