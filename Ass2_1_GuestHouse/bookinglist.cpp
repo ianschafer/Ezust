@@ -1,14 +1,15 @@
 #ifndef BOOKINGLIST_H
 #define BOOKINGLIST_H
 
+#include <QTextStream>
 #include "bookinglist.h"
 
-    using namespace std;
+//QTextStream cout(stdout);
 
 //Start class BookingList implementations
 BookingList::~BookingList()
 {
-
+    //cout << "Default constructor for BookingList BL" << endl;
 }
 
 int BookingList::roomsAvailable(QDate d)
@@ -61,7 +62,7 @@ void BookingList::deleteAll()
 //start class Booking implementaions
 Booking::~Booking()
 {
-
+    //cout << "Default destructor for BookingList BL" << endl;
 }
 
 double Booking::rate()
@@ -71,7 +72,12 @@ double Booking::rate()
 
 QString Booking::toString() const
 {
+    //cout << "Arrival date, Arrival date, Departure date " << endl;
 
+//    return QString("%1 %2 %3")
+//            .arg(Booking::m_ArrivalDate)
+//            .arg(Booking::m_ArrivalDate)
+//            .arg(Booking::m_DepartureDate);
 }
 
 bool Booking::booked(QDate d)

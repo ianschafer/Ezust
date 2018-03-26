@@ -22,25 +22,25 @@ private:
     Booking(const Booking&);
 //    Booking(QStringList& bookinglist);
     Person*  m_Contact;
-    QDate    m_Arrivaldate;
+    QDate    m_ArrivalDate;
     QDate    m_DepartureDate;
 };
 //end
 
 //start id=derivedclassdefs
-//class Person : public Booking {
+class Person : public Booking {
 
-//public:
-//    Person (QString *n, QString *c, QString *e);
-////    Person(const Person& person);
-//    Person(QStringList& bookinglist);
-//    virtual QString toString() const;
+public:
+    Person (QString *n, QString *c, QString *e);
+    Person(const Person& person);
+    Person(QStringList& bookinglist);
+    virtual QString toString() const;
 
-//private:
-//   QString m_Name;
-//   QString m_ContactNo;
-//   QString m_Email;
-//};
+private:
+   QString m_Name;
+   QString m_ContactNo;
+   QString m_Email;
+};
 
 //class Single : public Person {
 
@@ -75,7 +75,7 @@ class BookingList : public QList<Booking*> {
 public:
    static const int NO_OF_ROOMS = 3;    //Set fixed number of rooms
 
-//   BookingList() {}
+   BookingList() {}
    ~BookingList();                             /* A container of pointers must have a destructor! */
    int roomsAvailable(QDate d);
    bool vacancy(QDate a, QDate d);

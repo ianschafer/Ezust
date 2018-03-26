@@ -10,12 +10,10 @@
 #define BOOKINGLIST_H
 
 #include <QCoreApplication>
-#include <QTextStream>
 #include <QFile>
+#include <QTextStream>
 #include <QDebug>
 #include "bookinglist.h"
-
-using namespace std;
 
 /*TO DO:
  1. Are there any rooms available (roomsAvailable) on QDate?
@@ -42,9 +40,13 @@ Selections nextTask() {
            << "Your choice: " << flush;
      response = cin.readLine();
      choice = response.toInt();
-   } while(choice !=3);
 
-   cout << "End Selections" << endl;
+     if (choice !=1 && choice != 2 && choice!=3){
+         cout << "Incorrect selection. Try again ...\n" << endl;
+     }
+
+   } while(choice !=1 && choice != 2 && choice!=3);
+
    return static_cast<Selections>(choice);
 }
 
@@ -53,7 +55,28 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    nextTask();
+    //Create the Bookings List
+    BookingList BL;
+    cout << "BL created ... \n" << endl;
+
+    bool programRun = true;
+    while(programRun) {
+       switch(nextTask()) {
+       case 1: //roomsAvailable(QDate d);   //Check rooms availability
+           cout << "\nYou chose 1 ...\n Rooms available = nn.\n" << endl;
+           break;
+
+       case 2: //addBooking(Booking*& booking);  //Add a booking
+           cout << "\nYou chose 2 ...\n Booking added.\n" << endl;
+           //cout << Booking.toString() << endl;
+           break;
+       case 3: programRun = false;   //QUIT
+           break;
+       default:
+          break;
+       }
+    }
+    cout << "\nProgram ended ... BYE" << endl;
 
     return a.exec();
 }
