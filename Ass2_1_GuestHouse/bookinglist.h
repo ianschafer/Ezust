@@ -4,8 +4,6 @@
 #include <QDate>
 #include <QTextStream>
 
-//using namespace std;
-
 class Person;
 
 //start id=baseclassdef
@@ -14,8 +12,8 @@ class Booking {
 public:
     Booking (Person c, QDate a, QDate d); //forward declaration of class Person
     Booking(const Booking&);
-//    Booking(QStringList& bookinglist);
-//    const Booking& operator=(const Booking&);
+    Booking(QStringList& bookinglist);
+    const Booking& operator=(const Booking&);
     virtual ~Booking();
     virtual double rate();
     virtual QString toString() const;
@@ -34,8 +32,6 @@ private:
 class Person : public Booking {
 
 public:
-//    Booking (Person c, QDate a, QDate d);
-
     Person (QString n, QString c, QString e);
     Person(const Person& person);
     Person(QStringList& bookinglist);
@@ -47,32 +43,32 @@ private:
    QString m_Email;
 };
 
-//class Single : public Person {
+class Single : public Person {
 
-//public:
-//    Single(class Person* c, QDate *a, QDate *d, class Person* g);// : m_Guest(g) {}
-//    Single(const Single& single);
-//    Single(QStringList& bookinglist);
-//    QString toString() const;
-//    double rate();
+public:
+    Single(Person c, QDate a, QDate d, Person g);// : m_Guest(g) {}
+    Single(const Single& single);
+    Single(QStringList& bookinglist);
+    QString toString() const;
+    double rate();
 
-//private:
-//    Person*  m_Guest;
-//};
+private:
+    Person  m_Guest;
+};
 
-//class Sharing : public Person {
+class Sharing : public Person {
 
-//public:
-//    Sharing(class Person* c, QDate *a, QDate *d, class Person* g1, class Person* g2);// : m_Guest1(g1), m_Guest2(g2) {}
-//    Sharing(const Sharing& sharing);
-//    Sharing(QStringList& bookinglist);
-//    QString toString() const;
-//    double rate();
+public:
+    Sharing(Person c, QDate a, QDate d, class Person g1, class Person g2);// : m_Guest1(g1), m_Guest2(g2) {}
+    Sharing(const Sharing& sharing);
+    Sharing(QStringList& bookinglist);
+    QString toString() const;
+    double rate();
 
-//private:
-//   Person*  m_Guest1;
-//   Person*  m_Guest2;
-//};
+private:
+   Person  m_Guest1;
+   Person  m_Guest2;
+};
 //end
 
 //start id=QListdef

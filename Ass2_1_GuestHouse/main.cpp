@@ -13,8 +13,6 @@
 #include <QDebug>
 #include "bookinglist.h"
 
-//using namespace std;
-
 /*TO DO:
  1. Are there any rooms available (roomsAvailable) on QDate?
  * Returns number of rooms available on that QDate.
