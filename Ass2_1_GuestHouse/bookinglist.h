@@ -4,13 +4,11 @@
 #include <QDate>
 #include <QTextStream>
 
-class Person;
-
 //start id=baseclassdef
 class Booking {
 
 public:
-    Booking (Person c, QDate a, QDate d); //forward declaration of class Person
+    Booking (class Person c, QDate a, QDate d); //"class" indicates Forward class declaration
     Booking(const Booking&);
     Booking(QStringList& bookinglist);
     const Booking& operator=(const Booking&);
