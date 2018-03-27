@@ -1,43 +1,59 @@
 #ifndef BOOKINGLIST_H
 #define BOOKINGLIST_H
 
-#include <QTextStream>
 #include "bookinglist.h"
 
-//QTextStream cout(stdout);
-
 //Start class BookingList implementations
+BookingList::BookingList()
+{
+    QTextStream cout(stdout);
+    cout << "Default constructor for BookingList BL" << endl;
+}
+
 BookingList::~BookingList()
 {
-    //cout << "Default constructor for BookingList BL" << endl;
+    QTextStream cout(stdout);
+    cout << "Destructor for BookingList BL" << endl;
 }
 
-int BookingList::roomsAvailable(QDate d)
+//int BookingList::roomsAvailable(QDate d)
+int BookingList::roomsAvailable()
 {
-
-    /* Take the date, check the entire BookingList and count the number of rooms available on that date.
-     * Count the number of booking that include that date, subtract this count from
-     * the total number of rooms, remainder being total rooms available on that date.
-     */
-
+    QTextStream cout(stdout);
+    cout << "\nRooms available = 10\n" << endl;
 }
+
+//{
+
+//    /* Take the date, check the entire BookingList and count the number of rooms available on that date.
+//     * Count the number of booking that include that date, subtract this count from
+//     * the total number of rooms, remainder being total rooms available on that date.
+//     */
+
+//}
 
 bool BookingList::vacancy(QDate a, QDate d)
 {
-    //Check if entered date is valid; eg 32/12/2011 is not valid.
-
-    /*If arrival date precedes the departure date.
-
-        then,   Check that at least one room is available on each of the dates from
-                arrival to the day before dparture date by
-                calling roomsAvailable for each of the dates.
-    */
-
+    QTextStream cout(stdout);
+    cout << "Running function BookingList::vacancy .." << endl;
 }
+//{
+//    //Check if entered date is valid; eg 32/12/2011 is not valid.
 
-void BookingList::addBooking(Booking *&booking)
+//    /*If arrival date precedes the departure date.
+
+//        then,   Check that at least one room is available on each of the dates from
+//                arrival to the day before dparture date by
+//                calling roomsAvailable for each of the dates.
+//    */
+
+//}
+
+void BookingList::addBooking()
+//void BookingList::addBooking(Booking *&booking)
 {
-
+    QTextStream cout(stdout);
+    cout << "\nBooking added.\n" << endl;
 }
 
 //BookingList::addBooking(Person c, QDate a, QDate d, Person g1, Person g2)
@@ -85,10 +101,10 @@ bool Booking::booked(QDate d)
 
 }
 
-Booking::Booking(class Person* &c, QDate a, QDate d)
-{
+//Booking::Booking(class Person c, QDate a, QDate d)
+//{
 
-}
+//}
 // end Booking
 
 //start class Person implementations

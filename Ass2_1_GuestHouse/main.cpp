@@ -5,15 +5,15 @@
  Author: Ian Schafer
  Date: March 2018
 */
-
 #ifndef BOOKINGLIST_H
 #define BOOKINGLIST_H
-
 #include <QCoreApplication>
 #include <QFile>
 #include <QTextStream>
 #include <QDebug>
 #include "bookinglist.h"
+
+//using namespace std;
 
 /*TO DO:
  1. Are there any rooms available (roomsAvailable) on QDate?
@@ -26,7 +26,7 @@
 
 QTextStream cout(stdout);
 QTextStream cin(stdin);
-enum Selections {Availability=1, ADD, QUIT};
+enum Selections {Availability=1, AddBooking, QUIT};
 bool saved(false);
 
 //start id=lclmenu
@@ -62,16 +62,16 @@ int main(int argc, char *argv[])
     bool programRun = true;
     while(programRun) {
        switch(nextTask()) {
-       case 1: //roomsAvailable(QDate d);   //Check rooms availability
-           cout << "\nYou chose 1 ...\n Rooms available = nn.\n" << endl;
+       case 1: BL.roomsAvailable();//BL.roomsAvailable(QDate d)   //Check rooms availability
            break;
 
-       case 2: //addBooking(Booking*& booking);  //Add a booking
-           cout << "\nYou chose 2 ...\n Booking added.\n" << endl;
+       case 2: BL.addBooking();/*BL.addBooking(Booking*& booking)*/  //Add a booking
            //cout << Booking.toString() << endl;
            break;
+
        case 3: programRun = false;   //QUIT
            break;
+
        default:
           break;
        }

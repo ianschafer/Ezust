@@ -2,14 +2,20 @@
 #include <QString>
 #include <QStringList>
 #include <QDate>
+#include <QTextStream>
 
-using namespace std;
+//using namespace std;
 
-//start id=ABSTRACTbaseclassdef
+class Person;
+
+//start id=baseclassdef
 class Booking {
 
 public:
-    const Booking& operator=(const Booking&);
+    Booking (Person c, QDate a, QDate d); //forward declaration of class Person
+    Booking(const Booking&);
+//    Booking(QStringList& bookinglist);
+//    const Booking& operator=(const Booking&);
     virtual ~Booking();
     virtual double rate();
     virtual QString toString() const;
@@ -18,12 +24,9 @@ public:
     static const double  SHARING_PPPN;
 
 private:
-    Booking (class Person* &c, QDate a, QDate d);
-    Booking(const Booking&);
-//    Booking(QStringList& bookinglist);
-    Person*  m_Contact;
-    QDate    m_ArrivalDate;
-    QDate    m_DepartureDate;
+    Person  *m_Contact;
+    QDate   m_ArrivalDate;
+    QDate   m_DepartureDate;
 };
 //end
 
@@ -31,7 +34,9 @@ private:
 class Person : public Booking {
 
 public:
-    Person (QString *n, QString *c, QString *e);
+//    Booking (Person c, QDate a, QDate d);
+
+    Person (QString n, QString c, QString e);
     Person(const Person& person);
     Person(QStringList& bookinglist);
     virtual QString toString() const;
@@ -46,7 +51,7 @@ private:
 
 //public:
 //    Single(class Person* c, QDate *a, QDate *d, class Person* g);// : m_Guest(g) {}
-////    Single(const Single& single);
+//    Single(const Single& single);
 //    Single(QStringList& bookinglist);
 //    QString toString() const;
 //    double rate();
@@ -59,7 +64,7 @@ private:
 
 //public:
 //    Sharing(class Person* c, QDate *a, QDate *d, class Person* g1, class Person* g2);// : m_Guest1(g1), m_Guest2(g2) {}
-////    Sharing(const Sharing& sharing);
+//    Sharing(const Sharing& sharing);
 //    Sharing(QStringList& bookinglist);
 //    QString toString() const;
 //    double rate();
@@ -75,12 +80,12 @@ class BookingList : public QList<Booking*> {
 public:
    static const int NO_OF_ROOMS = 3;    //Set fixed number of rooms
 
-   BookingList() {}
+   BookingList();
    ~BookingList();                             /* A container of pointers must have a destructor! */
-   int roomsAvailable(QDate d);
+   int roomsAvailable();
    bool vacancy(QDate a, QDate d);
-   //Booking* addBooking(Person c, QDate a, QDate d, Person g1, Person g2);
-   void addBooking(Booking*& booking);
+   void addBooking();
+   //Booking* addBooking(Person c, QDate a, QDate d, Person *g1, Person *g2);
    void deleteAll(); //Call at end of client pgm to prevent mem leaks
 
 private:
