@@ -9,7 +9,6 @@
 #define BOOKINGLIST_H
 #include <QCoreApplication>
 #include <QFile>
-#include <QTextStream>
 #include <QDebug>
 #include "bookinglist.h"
 
@@ -24,12 +23,13 @@
 
 QTextStream cout(stdout);
 QTextStream cin(stdin);
-enum Selections {Availability=1, AddBooking, QUIT};
 bool saved(false);
 
 //start id=lclmenu
-Selections nextTask() {
+int nextTask() {
    int choice;
+   bool isSharing = false;
+   bool bookingInProgress = true;
    QString response;
    do {
       cout << 1 << ". Check rooms availability.\n"
@@ -45,7 +45,7 @@ Selections nextTask() {
 
    } while(choice !=1 && choice != 2 && choice!=3);
 
-   return static_cast<Selections>(choice);
+   return choice;
 }
 
 //START
@@ -60,11 +60,28 @@ int main(int argc, char *argv[])
     bool programRun = true;
     while(programRun) {
        switch(nextTask()) {
-       case 1: BL.roomsAvailable();//BL.roomsAvailable(QDate d)   //Check rooms availability
+       case 1: //BL.roomsAvailable(QDate d)   //Check rooms availability
+           cout << "\nRooms available: " << BL.roomsAvailable() << "\n" <<endl;
            break;
 
-       case 2: BL.addBooking();/*BL.addBooking(Booking*& booking)*/  //Add a booking
-           //cout << Booking.toString() << endl;
+       case 2:
+
+           //receive contact person
+           //   get name
+           //   get arrival date
+           //   get departure date
+           //   is it a Sharing booking.
+                /*if isSharing then
+                    instantiate class Single; get name
+                  else
+                    instantiate class Sharing; get names
+                 */
+           //now addBooking in QList
+           //set bool booked for each day of stay except the departure day
+           //repeat booking details to confirm. toString
+
+           BL.addBooking();//(Person c, QDate a, QDate d, Person *g1, Person *g2);  //Add a booking
+
            break;
 
        case 3: programRun = false;   //QUIT

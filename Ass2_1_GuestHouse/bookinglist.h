@@ -3,10 +3,11 @@
 #include <QStringList>
 #include <QDate>
 #include <QTextStream>
+#include <iostream>
 
 //start id=baseclassdef
 class Booking {
-
+friend std::ostream& operator <<(std::ostream &s, const Booking &b);
 public:
     Booking (class Person c, QDate a, QDate d); //"class" indicates Forward class declaration
     Booking(const Booking&);
@@ -72,7 +73,7 @@ private:
 //start id=QListdef
 class BookingList : public QList<Booking*> {
 public:
-   static const int NO_OF_ROOMS = 3;    //Set fixed number of rooms
+   static const int NO_OF_ROOMS = 10;    //Set fixed number of rooms
 
    BookingList();
    ~BookingList();                             /* A container of pointers must have a destructor! */
