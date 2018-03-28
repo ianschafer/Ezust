@@ -133,11 +133,11 @@ void BookingList::deleteAll()
 //end BookingList
 
 //start class Booking implementaions
-std::ostream& Booking::operator <<(std::ostream &s, const Booking &b)
-{
-    s << b.m_ArrivalDate << "/n" << b.m_DepartureDate << end;
-    return s;
-}
+//QTextStream& operator<<(QTextStream& s, Booking &b)
+//{
+//    s << b.m_ArrivalDate << "/n" << b.m_DepartureDate << endl;
+//    return s;
+//}
 
 Booking::~Booking()
 {

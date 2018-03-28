@@ -3,11 +3,14 @@
 #include <QStringList>
 #include <QDate>
 #include <QTextStream>
-#include <iostream>
 
 //start id=baseclassdef
 class Booking {
-friend std::ostream& operator <<(std::ostream &s, const Booking &b);
+friend QTextStream& operator <<(QTextStream& s, Booking& b)
+{
+    s << b.m_ArrivalDate << "/n" << b.m_DepartureDate << endl;
+    return s;
+}
 public:
     Booking (class Person c, QDate a, QDate d); //"class" indicates Forward class declaration
     Booking(const Booking&);
