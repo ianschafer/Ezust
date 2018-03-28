@@ -6,11 +6,8 @@
 
 //start id=baseclassdef
 class Booking {
-friend QTextStream& operator <<(QTextStream& s, Booking& b)
-{
-    s << b.m_ArrivalDate << "/n" << b.m_DepartureDate << endl;
-    return s;
-}
+friend QTextStream& operator<<(QTextStream&, const Booking&);
+
 public:
     Booking (class Person c, QDate a, QDate d); //"class" indicates Forward class declaration
     Booking(const Booking&);
