@@ -65,6 +65,8 @@ int main(int argc, char *argv[])
            break;
 
        case 2:
+           //Booking b;
+           //cout << b.m_ArrivalDate << endl;
 
            //receive contact person
            //   get name
