@@ -65,24 +65,24 @@ int main(int argc, char *argv[])
            break;
 
        case 2:
-           //Booking b;
-           //cout << b.m_ArrivalDate << endl;
+           cout << " instantiate Booking b;" << endl;
+           cout << "cout << b.m_ArrivalDate" << endl;
 
-           //receive contact person
-           //   get name
-           //   get arrival date
-           //   get departure date
-           //   is it a Sharing booking.
-                /*if isSharing then
-                    instantiate class Single; get name
-                  else
-                    instantiate class Sharing; get names
-                 */
-           //now addBooking in QList
-           //set bool booked for each day of stay except the departure day
-           //repeat booking details to confirm. toString
+           cout << "//receive contact person\n"
+           << "//   get name\n"
+           << "//   get arrival date\n"
+           << "//   get departure date\n"
+           << "//   is it a Sharing booking.\n"
+           << "/*if isSharing then\n"
+           << "instantiate class Single; get name\n"
+           << "else\n"
+           << "instantiate class Sharing; get names\n"
+           << "*/\n"
+           << "//now addBooking in QList\n"
+           << "//set bool booked for each day of stay except the departure day\n"
+           << "//repeat booking details to confirm. toString\n" << endl;
 
-           BL.addBooking();//(Person c, QDate a, QDate d, Person *g1, Person *g2);  //Add a booking
+           //BL.addBooking();//(Person c, QDate a, QDate d, Person *g1, Person *g2);  //Add a booking
 
            break;
 
