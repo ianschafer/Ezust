@@ -49,7 +49,6 @@ QString getGuestDetails(bool guest) {
     bool isGuest = guest;
 
     if (isGuest) {
-
     //get Guest's details
     cout << "Enter Guest name: " << flush;
     responseName = cin.readLine();
@@ -62,13 +61,18 @@ QString getGuestDetails(bool guest) {
     cout << "Enter Guest's Email: " << flush;
     responseEmail = cin.readLine();
 
+    //Person *cP = new Person(responseName, responseContactNum, responseEmail);
+
     strGuest = responseName
             + "," + responseContactNum
             + "," + responseEmail;
 
-    //cout << "\nGuest details: " << strGuest << endl;
+    cout << "strGuest " << strGuest << "\n" << endl;
 
-    return strGuest;
+    //cout << "from cP : " << cP->toString() << "\n" << endl;
+
+     return strGuest;
+     //delete cP;
     } else {
         //get Contact Person's details
         cout << "Enter Contact Person name: " << flush;
