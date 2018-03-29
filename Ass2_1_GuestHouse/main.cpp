@@ -12,41 +12,34 @@
 #include <QDebug>
 #include "bookinglist.h"
 
-/*TO DO:
- 1. Are there any rooms available (roomsAvailable) on QDate?
- * Returns number of rooms available on that QDate.
- * Goes thro the entire list of bookings and counts how many include QDate.
- * Subtract count from total number of rooms, remaining are available.
-
- 2. Add a booking (addBooking).
-*/
+enum mainMenu {ADD=1, ListAll, QUIT};
 
 QTextStream cout(stdout);
 QTextStream cin(stdin);
 bool saved(false);
 
 //start id=lclmenu
-int nextTask() {
+mainMenu nextTask() {
    int choice;
-   bool isSharing = false;
-   bool bookingInProgress = true;
    QString response;
    do {
-      cout << 1 << ". Add Booking.\n"
-           << 2 << ". List all Bookings.\n"
-           << 3 << ". QUIT.\n"
+      cout << ADD << ". Add Booking.\n"
+           << ListAll << ". List all Bookings.\n"
+           << QUIT << ". QUIT.\n"
            << "Your choice: " << flush;
      response = cin.readLine();
      choice = response.toInt();
 
-     if (choice !=1 && choice != 2 && choice!=3){
+     if (choice < ADD or choice > QUIT){
          cout << "Incorrect selection. Try again ...\n" << endl;
      }
 
-   } while(choice !=1 && choice != 2 && choice!=3);
+   } while(choice < ADD or choice > QUIT);
 
-   return choice;
-}
+   return static_cast<mainMenu>(choice);
+
+
+} //end lclmenu
 
 //START
 int main(int argc, char *argv[])
@@ -62,33 +55,9 @@ int main(int argc, char *argv[])
     while(programRun) {
        switch(nextTask()) {
        case 1: BL.addBooking();//(Person c, QDate a, QDate d, Person *g1, Person *g2);  //Add a booking
-           cout << "//repeat booking details to confirm. toString\n" << endl;
            break;
 
- Ass2_1_Development
        case 2: BL.listBookings();
-=======
-       case 2:
-           cout << " instantiate Booking b;" << endl;
-           cout << "cout << b.m_ArrivalDate" << endl;
-
-           cout << "//receive contact person\n"
-           << "//   get name\n"
-           << "//   get arrival date\n"
-           << "//   get departure date\n"
-           << "//   is it a Sharing booking.\n"
-           << "/*if isSharing then\n"
-           << "instantiate class Single; get name\n"
-           << "else\n"
-           << "instantiate class Sharing; get names\n"
-           << "*/\n"
-           << "//now addBooking in QList\n"
-           << "//set bool booked for each day of stay except the departure day\n"
-           << "//repeat booking details to confirm. toString\n" << endl;
-
-           //BL.addBooking();//(Person c, QDate a, QDate d, Person *g1, Person *g2);  //Add a booking
-
- master
            break;
 
        case 3: programRun = false;   //QUIT

@@ -16,7 +16,7 @@ public:
     const Booking& operator=(const Booking&);
     virtual ~Booking();
     virtual double rate();
-    virtual QString toString() const;
+    virtual QString toString(QString sep="[,]") const;
     bool booked(QDate d);
     static const double SINGLE_PPPN;
     static const double  SHARING_PPPN;
@@ -35,7 +35,7 @@ public:
     Person (QString n, QString c, QString e);
     Person(const Person& person);
     Person(QStringList& bookinglist);
-    virtual QString toString() const;
+    virtual QString toString(QString sep="[,]") const;
 
 private:
    QString m_Name;
@@ -49,7 +49,7 @@ public:
     Single(Person c, QDate a, QDate d, Person g);// : m_Guest(g) {}
     Single(const Single& single);
     Single(QStringList& bookinglist);
-    QString toString() const;
+    QString toString(QString sep="[,]") const;
     double rate();
 
 private:
@@ -62,7 +62,7 @@ public:
     Sharing(Person c, QDate a, QDate d, class Person g1, class Person g2);// : m_Guest1(g1), m_Guest2(g2) {}
     Sharing(const Sharing& sharing);
     Sharing(QStringList& bookinglist);
-    QString toString() const;
+    QString toString(QString sep="[,]") const;
     double rate();
 
 private:
@@ -84,6 +84,12 @@ public:
    //Booking* addBooking(Person c, QDate a, QDate d, Person *g1, Person *g2);
    void listBookings(); //List all Bookings.
    void deleteAll(); //Call at end of client pgm to prevent mem leaks
+
+   QString getGuestDetails(bool guest);
+   QString getDates();
+
+   enum sORsh {SINGLE=1, SHARING};
+   get_singleORsharing();
 
 private:
    BookingList(const BookingList&);
