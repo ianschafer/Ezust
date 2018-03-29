@@ -3,10 +3,11 @@
 #include <QStringList>
 #include <QDate>
 #include <QTextStream>
+#include <QDebug>
 
 //start id=baseclassdef
 class Booking {
-friend QTextStream& operator<<(QTextStream&, const Booking&);
+friend QTextStream& operator<<(QTextStream&, const Booking &);
 
 public:
     Booking (class Person c, QDate a, QDate d); //"class" indicates Forward class declaration
@@ -17,7 +18,7 @@ public:
     virtual double rate();
     virtual QString toString() const;
     bool booked(QDate d);
-    static const double  SINGLE_PPPN;
+    static const double SINGLE_PPPN;
     static const double  SHARING_PPPN;
 
 private:
@@ -81,6 +82,7 @@ public:
    bool vacancy(QDate a, QDate d);
    void addBooking();
    //Booking* addBooking(Person c, QDate a, QDate d, Person *g1, Person *g2);
+   void listBookings(); //List all Bookings.
    void deleteAll(); //Call at end of client pgm to prevent mem leaks
 
 private:

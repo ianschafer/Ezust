@@ -32,8 +32,8 @@ int nextTask() {
    bool bookingInProgress = true;
    QString response;
    do {
-      cout << 1 << ". Check rooms availability.\n"
-           << 2 << ". Add a booking.\n"
+      cout << 1 << ". Add Booking.\n"
+           << 2 << ". List all Bookings.\n"
            << 3 << ". QUIT.\n"
            << "Your choice: " << flush;
      response = cin.readLine();
@@ -57,13 +57,17 @@ int main(int argc, char *argv[])
     BookingList BL;
     cout << "BL created ... \n" << endl;
 
+
     bool programRun = true;
     while(programRun) {
        switch(nextTask()) {
-       case 1: //BL.roomsAvailable(QDate d)   //Check rooms availability
-           cout << "\nRooms available: " << BL.roomsAvailable() << "\n" <<endl;
+       case 1: BL.addBooking();//(Person c, QDate a, QDate d, Person *g1, Person *g2);  //Add a booking
+           cout << "//repeat booking details to confirm. toString\n" << endl;
            break;
 
+ Ass2_1_Development
+       case 2: BL.listBookings();
+=======
        case 2:
            cout << " instantiate Booking b;" << endl;
            cout << "cout << b.m_ArrivalDate" << endl;
@@ -84,6 +88,7 @@ int main(int argc, char *argv[])
 
            //BL.addBooking();//(Person c, QDate a, QDate d, Person *g1, Person *g2);  //Add a booking
 
+ master
            break;
 
        case 3: programRun = false;   //QUIT
