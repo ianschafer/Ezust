@@ -1,0 +1,163 @@
+PROBLEM: 
+Errors when attepting to compile:
+
+bookinglist.h:17: error: expected ')' before 'c'
+     Booking (Person c, QDate a, QDate d);
+                     ^
+bookinglist.h:29: error: 'Person' does not name a type
+     Person  *m_Contact;
+     ^
+without line A these two classes (class Booking and class Person) conflicted as above.
+Alternatively adding "class" before Person in the constructor (line B) also constitutes
+Forward class declaration. Both shown below but only do one or the other.
+Refer Ezust 2.10; pp87,88 and other books and forums for clarity.
+
+SOLUTION:
+class Person; //Forward class declaration for circular dependencies ... ********** A
+
+//start id=baseclassdef
+class Booking {
+
+public:
+    Booking (class Person c, QDate a, QDate d);	*************B
+             ^            
+    Booking(const Booking&);
+    Booking(QStringList& bookinglist);
+    const Booking& operator=(const Booking&);
+    virtual ~Booking();
+    virtual double rate();
+    virtual QString toString() const;
+    bool booked(QDate d);
+    static const double  SINGLE_PPPN;
+    static const double  SHARING_PPPN;
+
+private:
+    Person  *m_Contact;
+    QDate   m_ArrivalDate;
+    QDate   m_DepartureDate;
+};
+//end
+
+//start id=derivedclassdefs
+class Person : public Booking {
+
+public:
+    Person (QString n, QString c, QString e);
+    Person(const Person& person);
+    Person(QStringList& bookinglist);
+    virtual QString toString() const;
+
+private:
+   QString m_Name;
+   QString m_ContactNo;
+   QString m_Email;
+};
+
+ADDITIONAL NOTES from StackOverflow C++ forum chat.
+****************************************************************************************
+Can a C++ class include itself as a member?
+
+The problem I run into right away is:
+class Node {
+    char *cargo;
+    Node left;
+    Node right;
+};
+I can't declare left or right as Node types.
+
+No, because the object would be infinitely large (because every Node has as members two other Node objects, which each have as members two other Node objects, which each... well, you get the point).
+You can, however, have a pointer to the class type as a member variable:
+class Node {
+    char *cargo;
+    Node* left;   // I'm not a Node; I'm just a pointer to a Node
+    Node* right;  // Same here
+};
+
+Just for completeness, note that a class can contain a static instance of itself:
+class A
+{
+    static A a;
+};
+This is because static members are not actually stored in the class instances, so there is no recursion.
+
+
+*****************************************************************************************
+If two classes are using each other, one must be a pointer because the class cannot be used until the full declaration is received.
+For example:
+b.h
+#ifndef _B
+#define _B
+#include "A.h"
+class B
+{
+    public:
+    B();
+    A a;
+};
+#endif
+
+a.h
+#ifndef _A
+#define _A
+class B;
+class A
+{
+    public:
+    A();
+    B b;
+};
+#endif
+
+There are two problems:
+class A cannot be compiled because B is being used without the full declaration. Adding #include "b.h" will not work because:
+ a.h -- include "b.h" b.h -- include "a.h" no declaration since guarded so class b cannot create 'A a;'
+Even if it did compile, A would create B, then B creates A; then A creates B; then B creates A until it crashes.
+
+This will work:
+B.h
+#ifndef _B
+#define _B
+#include <iostream>
+#include "A.h"
+class B
+{
+    public:
+    B() {}
+    A a;
+    void hi() {std::cout << "hi" << std::endl;}
+};
+#endif
+
+A.h
+#ifndef _A
+#define _A
+class B;
+class A
+{
+    public:
+    A();
+    void set(B *p);
+    void sayHi();
+    private:
+    B *b;
+};
+#endif
+
+A.cpp
+#include "A.h"
+#include "B.h"
+
+A::A() : b(0) {}
+
+void A::set(B *p) {b=p;}
+
+void A::sayHi() { if(b) b->hi(); }
+
+int main()
+{
+    A a;
+    B b;
+    a.set(&b);
+    a.sayHi();
+    return 0;
+}

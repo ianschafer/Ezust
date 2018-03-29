@@ -146,7 +146,11 @@ void BookingList::deleteAll()
 //end BookingList
 
 //start class Booking implementaions
+ Ass2_1_Development
 QTextStream& operator<<(QTextStream &s, const Booking &b)
+
+QTextStream& operator<<(QTextStream &s, Booking const &b)
+ master
 {
 //    s << b.m_ArrivalDate << "/n" << b.m_DepartureDate << endl;
     s << "HELLO WORLD" << endl;

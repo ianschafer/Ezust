@@ -65,7 +65,30 @@ int main(int argc, char *argv[])
            cout << "//repeat booking details to confirm. toString\n" << endl;
            break;
 
+ Ass2_1_Development
        case 2: BL.listBookings();
+=======
+       case 2:
+           cout << " instantiate Booking b;" << endl;
+           cout << "cout << b.m_ArrivalDate" << endl;
+
+           cout << "//receive contact person\n"
+           << "//   get name\n"
+           << "//   get arrival date\n"
+           << "//   get departure date\n"
+           << "//   is it a Sharing booking.\n"
+           << "/*if isSharing then\n"
+           << "instantiate class Single; get name\n"
+           << "else\n"
+           << "instantiate class Sharing; get names\n"
+           << "*/\n"
+           << "//now addBooking in QList\n"
+           << "//set bool booked for each day of stay except the departure day\n"
+           << "//repeat booking details to confirm. toString\n" << endl;
+
+           //BL.addBooking();//(Person c, QDate a, QDate d, Person *g1, Person *g2);  //Add a booking
+
+ master
            break;
 
        case 3: programRun = false;   //QUIT
