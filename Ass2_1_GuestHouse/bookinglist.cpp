@@ -2,6 +2,9 @@
 #define BOOKINGLIST_H
 #include "bookinglist.h"
 
+const double Booking::SINGLE_PPPN = 490.00;
+const double  Booking::SHARING_PPPN = 390.00;
+
 //Start class BookingList implementations
 BookingList::BookingList()
 {
@@ -24,9 +27,12 @@ BookingList::~BookingList()
 //int BookingList::roomsAvailable(QDate d)
 int BookingList::roomsAvailable()
 {
+    QTextStream cout(stdout);
+    cout << "\nRunning function BookingList::roomsAvailable ..\n" << endl;
     int numRoomsBooked = 2;
     //prompt for date
-    //count no, of rooms booked on that date
+    //iterator for number of rooms
+    //count bool Booked
     //subtract from total rooms
     //return
 
@@ -91,37 +97,44 @@ bool BookingList::vacancy(QDate a, QDate d)
 
 void BookingList::addBooking() //(Person c, QDate a, QDate d, Person g1, Person g2)
 {
+    QTextStream cout(stdout);
     //Confirm there is a vacancy
-    QDate a(2018,04,07);
-    QDate d(2018,06,10);
+    QDate aDate(2018,04,07);
+    QDate dDate(2018,06,10);
 
-
-//    if (BookingList::vacancy(a, d)) {
-//            QTextStream cout(stdout);
-//            cout << "\nBooking added.\n" << endl;
-//    }
-//    else {
-//            QTextStream cout(stdout);
-//            cout << "\nNO VACANCY\n" << endl;
-//            exit;
-//    }
-
-            //check for vacancy
+    //check for vacancy
     //if vacancy, continue to book
     //else break;
 
-//instantiate contact person
-//Prompt for contact person's details
-//prompt sharing?
 
-//If Single
-    //instantiate person
-    //prompt person details; add single booking
-//else
-    //instantiate person
-    //instantiate person
-    //prompt two persons details; add Sharing booking
 
+//           QDate adate(2018,04,07);
+//           QDate ddate(2018,06,10);
+//    Person p("IAS", "0833794795", "ianschafer@gmail.com");
+//    Booking b(p*, adate, ddate);
+    //cout << "ArrivalDate: " << b.m_ArrivalDate;
+
+    cout << "\n//receive contact person\n"
+    << "//   get name\n"
+    << "//   get arrival date\n"
+    << "//   get departure date\n"
+    << "is there a vacancy?\n"
+       << "if yes ... consinue booking\n"
+       << "else NO VACANCY\n"
+    << "//   is it a Sharing booking.\n"
+    << "/*if isSharing then\n"
+    << "instantiate class Single; get name\n"
+    << "else\n"
+    << "instantiate class Sharing; get names\n"
+    << "*/\n"
+    << "//now addBooking in QList\n"
+    << "//set bool booked for each day of stay except the departure day\n" << endl;
+}
+
+void BookingList::listBookings()
+{
+    QTextStream cout(stdout);
+    cout << "\nList all bookings ..\n" << endl;
 }
 // end addBooking
 
@@ -133,11 +146,11 @@ void BookingList::deleteAll()
 //end BookingList
 
 //start class Booking implementaions
-QTextStream& operator<<(QTextStream& s, Booking &b)
+QTextStream& operator<<(QTextStream &s, const Booking &b)
 {
 //    s << b.m_ArrivalDate << "/n" << b.m_DepartureDate << endl;
     s << "HELLO WORLD" << endl;
-//    return s;
+    return s;
 }
 
 Booking::~Booking()

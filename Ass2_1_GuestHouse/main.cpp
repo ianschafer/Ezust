@@ -32,8 +32,8 @@ int nextTask() {
    bool bookingInProgress = true;
    QString response;
    do {
-      cout << 1 << ". Check rooms availability.\n"
-           << 2 << ". Add a booking.\n"
+      cout << 1 << ". Add Booking.\n"
+           << 2 << ". List all Bookings.\n"
            << 3 << ". QUIT.\n"
            << "Your choice: " << flush;
      response = cin.readLine();
@@ -57,33 +57,15 @@ int main(int argc, char *argv[])
     BookingList BL;
     cout << "BL created ... \n" << endl;
 
+
     bool programRun = true;
     while(programRun) {
        switch(nextTask()) {
-       case 1: //BL.roomsAvailable(QDate d)   //Check rooms availability
-           cout << "\nRooms available: " << BL.roomsAvailable() << "\n" <<endl;
+       case 1: BL.addBooking();//(Person c, QDate a, QDate d, Person *g1, Person *g2);  //Add a booking
+           cout << "//repeat booking details to confirm. toString\n" << endl;
            break;
 
-       case 2:
-           //Booking b;
-           //cout << b.m_ArrivalDate << endl;
-
-           //receive contact person
-           //   get name
-           //   get arrival date
-           //   get departure date
-           //   is it a Sharing booking.
-                /*if isSharing then
-                    instantiate class Single; get name
-                  else
-                    instantiate class Sharing; get names
-                 */
-           //now addBooking in QList
-           //set bool booked for each day of stay except the departure day
-           //repeat booking details to confirm. toString
-
-           BL.addBooking();//(Person c, QDate a, QDate d, Person *g1, Person *g2);  //Add a booking
-
+       case 2: BL.listBookings();
            break;
 
        case 3: programRun = false;   //QUIT
