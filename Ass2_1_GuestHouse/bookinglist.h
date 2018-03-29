@@ -10,9 +10,9 @@ class Booking {
 friend QTextStream& operator<<(QTextStream&, const Booking &);
 
 public:
-    Booking (class Person c, QDate a, QDate d); //"class" indicates Forward class declaration
+    Booking (class Person *c, QDate a, QDate d); //"class" indicates Forward class declaration
     Booking(const Booking&);
-    Booking(QStringList& bookinglist);
+    Booking(QStringList&);
     const Booking& operator=(const Booking&);
     virtual ~Booking();
     virtual double rate();
@@ -84,12 +84,6 @@ public:
    //Booking* addBooking(Person c, QDate a, QDate d, Person *g1, Person *g2);
    void listBookings(); //List all Bookings.
    void deleteAll(); //Call at end of client pgm to prevent mem leaks
-
-   QString getGuestDetails(bool guest);
-   QString getDates();
-
-   enum sORsh {SINGLE=1, SHARING};
-   get_singleORsharing();
 
 private:
    BookingList(const BookingList&);

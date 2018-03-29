@@ -96,15 +96,7 @@ void BookingList::addBooking() //(Person c, QDate a, QDate d, Person g1, Person 
 
     cout << "\nBooking in progress ..\n" << endl;
 
-    //cout Get Contact Person details
-    QString strContactPerson(getGuestDetails(false)); // bool guest; true=guest or false=contact person
-    cout << "Contact Person details: " << strContactPerson << endl;
-
-    //Get Arrival and Departute dates
-    QString strArrDepDates(getDates());
-    cout << "Date string: " << strContactPerson << endl;
-
-    //Confirm there is a vacancy
+     //Confirm there is a vacancy
 
     //check for vacancy
     //if vacancy, continue to book
@@ -117,21 +109,6 @@ void BookingList::addBooking() //(Person c, QDate a, QDate d, Person g1, Person 
         cout << "\nNO VACANCY ... exiting to MENU ..\n" << endl;
         return;
     }
-
-    //Single or Sharing
-
-    switch(BookingList::get_singleORsharing()) {
-    case SINGLE: //read(lib);
-                cout << "Confirmed SINGLE .. do booking for one\n" << endl;
-                break;
-    case SHARING: //enterData(lib);
-                cout << "Confirmed SHARING .. do booking for two\n" << endl;
-                break;
-    default:
-                cout << "Default break .. " << endl;
-                break;
-    }
-
 
     cout
     << "//now addBooking in QList\n"
@@ -149,116 +126,21 @@ void BookingList::listBookings()
 void BookingList::deleteAll()
 {
     //Delete all dynamic pointers created on the Heap.
-}
+}   //end deleteAll
 
-//start getGuestDetails
-QString BookingList::getGuestDetails(bool guest) {
-    QTextStream cout(stdout);
-    QTextStream cin(stdin);
-
-    QString responseName, responseContactNum, responseEmail;
-    QString strGuest;
-    bool isGuest = guest;
-
-    if (isGuest) {
-
-    //get Guest's details
-    cout << "Enter Guest name: " << flush;
-    responseName = cin.readLine();
-
-    //get Guest's contact number
-    cout << "Enter Guest telephone number: " << flush;
-    responseContactNum = cin.readLine();
-
-    //get Guest's Email
-    cout << "Enter Guest's Email: " << flush;
-    responseEmail = cin.readLine();
-
-    strGuest = responseName
-            + "," + responseContactNum
-            + "," + responseEmail;
-
-    //cout << "\nGuest details: " << strGuest << endl;
-
-    return strGuest;
-    } else {
-        //get Contact Person's details
-        cout << "Enter Contact Person name: " << flush;
-        responseName = cin.readLine();
-
-        //get Contact's telephone number
-        cout << "Enter Contact Person's telephone number: " << flush;
-        responseContactNum = cin.readLine();
-
-        //get Contact Person's Email
-        cout << "Enter Contact Person's Email: " << flush;
-        responseEmail = cin.readLine();
-
-        strGuest = responseName
-                + "," + responseContactNum
-                + "," + responseEmail;
-
-        //cout << "\nGuest details: " << strGuest << endl;
-
-        return strGuest;
-
-    }// end if isGuest
-}   //end getGuestDetails
-
-QString BookingList::getDates()
-{
-    QTextStream cout(stdout);
-    QTextStream cin(stdin);
-
-    //Get Arrival and DepartureDates
-    QString strArrDate, strDepDate, strDates;
-
-    //get Arrival date
-    cout << "\nEnter Arrival Date (yyyy,mm,dd): " << flush;
-    strArrDate = cin.readLine();
-
-    //get Departure date
-    cout << "Enter Departure Date (yyyy,mm,dd): " << flush;
-    strDepDate = cin.readLine();
-
-    strDates = strArrDate + " , " + strDepDate;
-    //cout << "Date string " << strDates << endl;
-
-    return strDates;
-
-}   //end getDates
-
-//start id=singleORsharing?
-BookingList::get_singleORsharing() {
-    QTextStream cout(stdout);
-    QTextStream cin(stdin);
-
-
-    bool Sharing = false;
-
-    int choice;
-    QString response;
-   do {
-        cout << SINGLE << ". Single.\n"
-             << SHARING << ". Sharing.\n"
-             << "Enter selection (1or2): " << flush;
-
-        response = cin.readLine();
-        choice = response.toInt();
-
-        if (choice < SINGLE or choice > SHARING){
-            cout << "Incorrect selection. Try again ...\n" << endl;
-        }
-
-   } while(choice < SINGLE or choice > SHARING);
-
-   //cout << "return get_singleORsharing: " << static_cast<sORsh>(choice) << endl;
-   return static_cast<sORsh>(choice);
-
-}   //end get_singleORsharing
 
 //start class Booking implementaions
-Booking::Booking(class Person c, QDate a, QDate d)
+Booking::Booking(class Person *c, QDate a, QDate d) : m_Contact(c), m_ArrivalDate(a), m_DepartureDate(d)
+{
+
+}
+
+Booking::Booking(const Booking &)
+{
+
+}
+
+Booking::Booking(QStringList&)
 {
 
 }
@@ -298,18 +180,20 @@ bool Booking::booked(QDate d)
 // end Booking
 
 //start class Person implementations
-//Person::Person(QString *n, QString *c, QString *e)
-//{
-
-//}
+Person::Person(QString n, QString c, QString e) : m_Name(n), m_ContactNo(c), m_Email(e)
+{
+//    m_Name = n;
+//    m_ContactNo = c;
+//    m_Email = e;
+}
 
 QString Person::toString(QString sep) const
 {
-//    return QString("%1%2%3%4%5%6%7").arg(Person::toString(sep))
-//                .arg(sep).arg(m_Name).arg(sep).arg(m_ContactNo)
-//                .arg(sep).arg(m_Email);
+    return QString("%1%2%3%4%5%6%7").arg(Person::toString(sep))
+                .arg(sep).arg(m_Name).arg(sep).arg(m_ContactNo)
+                .arg(sep).arg(m_Email);
 }
-//end Person
+//end Person::toString
 
 //start class Single implementations
 //Single::Single(class Person* c, QDate a, QDate d, class Person* g)
