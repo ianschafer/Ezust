@@ -37,7 +37,7 @@ public:
     Person (QString, QString, QString);
     Person(const Person& person);
     Person(QStringList& bookinglist);
-    virtual QString toString(QString sep="[,]") const;
+    virtual QString toString(QString sep=",") const;
 
 private:
    QString m_Name;
