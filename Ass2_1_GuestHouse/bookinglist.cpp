@@ -1,5 +1,3 @@
-#ifndef BOOKINGLIST_H
-#define BOOKINGLIST_H
 #include "bookinglist.h"
 
 const double Booking::SINGLE_PPPN = 490.00;
@@ -229,5 +227,3 @@ QString Person::toString(QString sep) const
 //}
 
 //end Sharing
-
-#endif // BOOKINGLIST_H

@@ -10,7 +10,7 @@ class Booking {
 friend QTextStream& operator<<(QTextStream&, const Booking &);
 
 public:
-    Booking();
+    Booking(){}
     Booking (Person, QDate, QDate); //"class" ... could put Forward decl. here
     Booking(const Booking&);
     Booking(QStringList&);
