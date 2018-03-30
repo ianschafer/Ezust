@@ -184,9 +184,7 @@ Person::Person(QString n, QString c, QString e) : m_Name(n), m_ContactNo(c), m_E
 
 QString Person::toString(QString sep) const
 {
-    return QString("%1%2%3%4%5%6%7").arg(Person::toString(sep))
-                .arg(sep).arg(m_Name).arg(sep).arg(m_ContactNo)
-                .arg(sep).arg(m_Email);
+    return  QString("%1%2%3%4%5%6").arg(m_Name).arg(sep).arg(m_ContactNo).arg(sep).arg(m_Email);
 }
 //end Person::toString
 

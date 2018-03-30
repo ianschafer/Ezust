@@ -59,18 +59,14 @@ QString getGuestDetails(bool guest) {
     cout << "Enter Guest's Email: " << flush;
     responseEmail = cin.readLine();
 
-    //Person *cP = new Person(responseName, responseContactNum, responseEmail);
+    Person *gP = new Person(responseName, responseContactNum, responseEmail);
 
-    strGuest = responseName
-            + "," + responseContactNum
-            + "," + responseEmail;
+    cout << "return from getGuestDetails() gP: " << gP->toString() << "\n" << endl;
+    strGuest = gP->toString();
 
-    cout << "strGuest " << strGuest << "\n" << endl;
+    delete gP;
+    return strGuest;
 
-    //cout << "from cP : " << cP->toString() << "\n" << endl;
-
-     return strGuest;
-     //delete cP;
     } else {
         //get Contact Person's details
         cout << "Enter Contact Person name: " << flush;
@@ -84,15 +80,15 @@ QString getGuestDetails(bool guest) {
         cout << "Enter Contact Person's Email: " << flush;
         responseEmail = cin.readLine();
 
-        strGuest = responseName
-                + "," + responseContactNum
-                + "," + responseEmail;
+        Person *cP = new Person(responseName, responseContactNum, responseEmail);
 
-        //cout << "\nGuest details: " << strGuest << endl;
+        cout << "return from getGuestDetails() cP: " << cP->toString() << "\n" << endl;
+        strGuest = cP->toString();
+
+        delete cP;
 
         return strGuest;
-
-    }// end if isGuest
+      }// end if
 }   //end getGuestDetails
 
 QString getDates()
@@ -120,7 +116,8 @@ bool isSharing() {
     QTextStream cout(stdout);
     QTextStream cin(stdin);
 
-    int choice;
+    bool    inBool;
+    int     choice;
     QString response;
    do {
         cout << "Type of booking?\n"
@@ -140,15 +137,16 @@ bool isSharing() {
    //return static_cast<sORsh>(choice);
 
    switch (static_cast<sORsh>(choice)){
-       case SINGLE: return false;
+       case SINGLE: inBool=false;
                     break;
-       case SHARING: return true;
+       case SHARING: inBool=true;
                     break;
    default:
                cout << "Default break .. " << endl;
                break;
    }   //end switch
 
+   return inBool;
 }   //end isSharing
 
 
@@ -161,14 +159,11 @@ int main(int argc, char *argv[])
     BookingList BL;
     cout << "BL created ... \n" << endl;
 
-
-    QString strContactPerson;
     QString strArrDepDates;
     bool programRun = true;
     while(programRun) {
        switch(nextTask()) {
-       case 1: strContactPerson = getGuestDetails(false); // bool guest; true=guest or false=contact person
-            cout << "Contact Person details: " << strContactPerson << endl;
+       case 1: getGuestDetails(true); // bool guest; true=guest or false=contact person
             strArrDepDates = getDates();
             cout << "Date string: " << strArrDepDates << "\n" <<  endl;
             if (isSharing()) {
