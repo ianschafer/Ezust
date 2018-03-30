@@ -8,8 +8,6 @@
 #ifndef BOOKINGLIST_H
 #define BOOKINGLIST_H
 #include <QCoreApplication>
-#include <QFile>
-#include <QDebug>
 #include "bookinglist.h"
 
 enum mainMenu {ADD=1, ListAll, QUIT};
@@ -125,7 +123,8 @@ bool isSharing() {
     int choice;
     QString response;
    do {
-        cout << SINGLE << ". Single.\n"
+        cout << "Type of booking?\n"
+             << SINGLE << ". Single.\n"
              << SHARING << ". Sharing.\n"
              << "Enter selection (1or2): " << flush;
 
