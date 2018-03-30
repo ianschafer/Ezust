@@ -23,7 +23,6 @@ BookingList::~BookingList()
 * Count the number of booking that include that date, subtract this count from
 * the total number of rooms, remainder being total rooms available on that date.
 */
-
 //int BookingList::roomsAvailable(QDate d)
 int BookingList::roomsAvailable()
 {
@@ -127,10 +126,10 @@ void BookingList::deleteAll()
 {
     //Delete all dynamic pointers created on the Heap.
 }   //end deleteAll
-
+//end BookingList
 
 //start class Booking implementaions
-Booking::Booking(class Person *c, QDate a, QDate d) : m_Contact(c), m_ArrivalDate(a), m_DepartureDate(d)
+Booking::Booking(Person c, QDate a, QDate d) : m_Contact(&c), m_ArrivalDate(a), m_DepartureDate(d)
 {
 
 }
@@ -180,12 +179,10 @@ bool Booking::booked(QDate d)
 // end Booking
 
 //start class Person implementations
-Person::Person(QString n, QString c, QString e) : m_Name(n), m_ContactNo(c), m_Email(e)
-{
-//    m_Name = n;
-//    m_ContactNo = c;
-//    m_Email = e;
-}
+
+Person::Person() {}
+
+Person::Person(QString n, QString c, QString e) : m_Name(n), m_ContactNo(c), m_Email(e) {}
 
 QString Person::toString(QString sep) const
 {
@@ -194,6 +191,8 @@ QString Person::toString(QString sep) const
                 .arg(sep).arg(m_Email);
 }
 //end Person::toString
+
+//  end Person
 
 //start class Single implementations
 //Single::Single(class Person* c, QDate a, QDate d, class Person* g)
@@ -228,7 +227,6 @@ QString Person::toString(QString sep) const
 //{
 
 //}
-
 
 //end Sharing
 

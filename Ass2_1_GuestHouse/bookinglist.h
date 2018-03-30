@@ -3,14 +3,15 @@
 #include <QStringList>
 #include <QDate>
 #include <QTextStream>
-#include <QDebug>
 
+class   Person; //forward class declaration
 //start id=baseclassdef
 class Booking {
 friend QTextStream& operator<<(QTextStream&, const Booking &);
 
 public:
-    Booking (class Person *c, QDate a, QDate d); //"class" indicates Forward class declaration
+    Booking();
+    Booking (Person, QDate, QDate); //"class" ... could put Forward decl. here
     Booking(const Booking&);
     Booking(QStringList&);
     const Booking& operator=(const Booking&);
@@ -22,7 +23,7 @@ public:
     static const double  SHARING_PPPN;
 
 private:
-    Person  *m_Contact;
+    Person*  m_Contact;
     QDate   m_ArrivalDate;
     QDate   m_DepartureDate;
 };
@@ -32,7 +33,8 @@ private:
 class Person : public Booking {
 
 public:
-    Person (QString n, QString c, QString e);
+    Person();
+    Person (QString, QString, QString);
     Person(const Person& person);
     Person(QStringList& bookinglist);
     virtual QString toString(QString sep="[,]") const;
