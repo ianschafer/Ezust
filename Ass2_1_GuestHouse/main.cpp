@@ -10,7 +10,6 @@
 #include <QCoreApplication>
 #include <QString>
 #include <QDate>
-#include <string>
 #include "bookinglist.h"
 
 enum mainMenu {ADD=1, ListAll, QUIT};
@@ -51,15 +50,15 @@ QString getGuestDetails(bool guest) {
 
     if (isGuest) {
     //get Guest's details
-    cout << "Enter Guest name: " << flush;
+    cout << "\nEnter Guest name: " << flush;
     responseName = cin.readLine();
 
     //get Guest's contact number
-    cout << "Enter Guest telephone number: " << flush;
+    cout << "Enter Guest Tel/Mobile number: " << flush;
     responseContactNum = cin.readLine();
 
     //get Guest's Email
-    cout << "Enter Guest's Email: " << flush;
+    cout << "Enter Guest Email: " << flush;
     responseEmail = cin.readLine();
 
     Person *gP = new Person(responseName, responseContactNum, responseEmail);
@@ -71,12 +70,12 @@ QString getGuestDetails(bool guest) {
     return strGuest;
 
     } else {
-        //get Contact Person's details
-        cout << "Enter Contact Person name: " << flush;
+        //get Contact Person details
+        cout << "\nEnter Contact Person name: " << flush;
         responseName = cin.readLine();
 
-        //get Contact's telephone number
-        cout << "Enter Contact Person's telephone number: " << flush;
+        //get Contact telephone number
+        cout << "Enter Contact Person Tel/Mobile number: " << flush;
         responseContactNum = cin.readLine();
 
         //get Contact Person's Email
@@ -99,7 +98,6 @@ QString getArrDate()
 {
     QTextStream cout(stdout);
     QTextStream cin(stdin);
-    //std::string;
     QDate arrDate;
     QString outDate, day, month, year;
 
@@ -108,7 +106,7 @@ QString getArrDate()
     bool ok;
     while (!dateValid) {
 
-      cout << "\nEnter Arrival Day (dd): " << flush;
+      cout << "Enter Arrival Day (dd): " << flush;
       day = cin.readLine();
       int intDay = day.toInt(&ok);
 
@@ -122,14 +120,14 @@ QString getArrDate()
 
       if (QDate::isValid(intYear, intMonth, intDay)){
           arrDate = QDate(intYear, intMonth, intDay);
-          outDate = year + month + day;
+          outDate = year + "/" + month + "/" + day;
           dateValid = true;
       } else {
           cout << "\nInvalid Arrival date. Try again..\n" << endl;
       }
    } //end while
 
-    cout << "\narrDate: " << outDate << "\n" << endl;
+    cout << "Arrival Date: " << outDate << endl;
     return outDate;
 
 }   //end getArrDate
@@ -140,27 +138,35 @@ QString getDepDate()
     QTextStream cout(stdout);
     QTextStream cin(stdin);
     QDate depDate;
-    QString outDate;
-    int year;
-    int month;
-    int day;
+    QString outDate, day, month, year;
 
     //get Departure date
     bool dateValid = false;
+    bool ok;
     while (!dateValid) {
-      cout << "\nEnter Departure Date (yyyy,mm,dd): " << endl;
-      cin << year << month << day;
 
-      if (QDate::isValid(year, month, day)){
-          depDate = QDate(year, month, day);
-          outDate = year + month + day;
+      cout << "\nEnter Departure Day (dd): " << flush;
+      day = cin.readLine();
+      int intDay = day.toInt(&ok);
+
+      cout << "Month (mmd): " << flush;
+      month = cin.readLine();
+      int intMonth = month.toInt(&ok);
+
+      cout << "Year (yyyy): " << flush;
+      year = cin.readLine();
+      int intYear = year.toInt(&ok);
+
+      if (QDate::isValid(intYear, intMonth, intDay)){
+          depDate = QDate(intYear, intMonth, intDay);
+          outDate = year + "/" + month + "/" + day;
           dateValid = true;
       } else {
-          cout << "Invalid Departure date. Try again..\n" << endl;
+          cout << "\nInvalid Departure date. Try again..\n" << endl;
       }
-    }
+   } //end while
 
-    cout << "arrDate: " << outDate << "\n" << endl;
+    cout << "Departure Date: " << outDate << "\n" << endl;
     return outDate;
 
 }   //end getDepDate
@@ -219,7 +225,7 @@ int main(int argc, char *argv[])
        switch(nextTask()) {
        case 1: getGuestDetails(true); // bool guest; true=guest or false=contact person
                getArrDate();
-                //getDepDate();
+               getDepDate();
             if (isSharing()) {
                 cout << "Adding a SHARING booking" << endl;
                 BL.addBooking();//(Person c, QDate a, QDate d, Person *g1, Person *g2);  //Add a single booking
