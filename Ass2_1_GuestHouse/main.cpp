@@ -40,12 +40,11 @@ mainMenu nextTask() {
 } //end lclmenu
 
 //start getGuestDetails
-QString getGuestDetails(bool guest) {
+QStringList getGuestDetails(bool guest) {
     QTextStream cout(stdout);
     QTextStream cin(stdin);
 
     QString responseName, responseContactNum, responseEmail;
-    QString strGuest;
     bool isGuest = guest;
 
     if (isGuest) {
@@ -61,14 +60,13 @@ QString getGuestDetails(bool guest) {
     cout << "Enter Guest Email: " << flush;
     responseEmail = cin.readLine();
 
-    Person *gP = new Person(responseName, responseContactNum, responseEmail);
+    QStringList qslgP;
+    qslgP << responseName << responseContactNum << responseEmail;
 
-    cout << "return from getGuestDetails() gP: " << gP->toString() << "\n" << endl;
-    strGuest = gP->toString();
+//    QString str_qslgP = qslgP.join(", ");
+//    cout << "qslgP joined.. " << str_qslgP << "\n" << endl;
 
-    delete gP;
-    return strGuest;
-
+    return qslgP;
     } else {
         //get Contact Person details
         cout << "\nEnter Contact Person name: " << flush;
@@ -82,19 +80,18 @@ QString getGuestDetails(bool guest) {
         cout << "Enter Contact Person's Email: " << flush;
         responseEmail = cin.readLine();
 
-        Person *cP = new Person(responseName, responseContactNum, responseEmail);
+        QStringList qslcP;
+        qslcP << responseName << responseContactNum << responseEmail;
 
-        cout << "return from getGuestDetails() cP: " << cP->toString() << "\n" << endl;
-        strGuest = cP->toString();
+//        QString str_qslcP = qslcP.join(", ");
+//        cout << "qslgP joined.. " << str_qslcP << "\n" << endl;
 
-        delete cP;
-
-        return strGuest;
+        return qslcP;
       }// end if
 }   //end getGuestDetails
 
 //start getArrDate()
-QString getArrDate()
+QDate getArrDate()
 {
     QTextStream cout(stdout);
     QTextStream cin(stdin);
@@ -128,12 +125,12 @@ QString getArrDate()
    } //end while
 
     cout << "Arrival Date: " << outDate << endl;
-    return outDate;
+    return arrDate;
 
 }   //end getArrDate
 
 //start gertDepDate()
-QString getDepDate()
+QDate getDepDate()
 {
     QTextStream cout(stdout);
     QTextStream cin(stdin);
@@ -167,7 +164,7 @@ QString getDepDate()
    } //end while
 
     cout << "Departure Date: " << outDate << "\n" << endl;
-    return outDate;
+    return depDate;
 
 }   //end getDepDate
 
@@ -219,21 +216,24 @@ int main(int argc, char *argv[])
     BookingList BL;
     cout << "BL created ... \n" << endl;
 
-    QString strArrDepDates;
+    QStringList qslPerson;
+    Person *person = new Person;
+    Person *g1 = new Person;
+    Person *g2 = new Person;
+    Booking *nextBooking = new Booking;
+
+    QDate arrivalDate, departureDate;
     bool programRun = true;
     while(programRun) {
        switch(nextTask()) {
-       case 1: getGuestDetails(true); // bool guest; true=guest or false=contact person
-               getArrDate();
-               getDepDate();
-            if (isSharing()) {
-                cout << "Adding a SHARING booking" << endl;
-                BL.addBooking();//(Person c, QDate a, QDate d, Person *g1, Person *g2);  //Add a single booking
-            } else {
-                cout << "Adding a SINGLE booking" << endl;
-                BL.addBooking();//(Person c, QDate a, QDate d, Person *g1, Person *g2);  //Add a sharing booking
-            }
-           break;
+       case 1: qslPerson = getGuestDetails(false); // bool guest; true=guest or false=contact person
+               person = new Person(qslPerson);
+               cout << "Contact person toString.. " << person->toString() << "\n" << endl;
+               arrivalDate = getArrDate();
+               departureDate = getDepDate();
+               cout << "Period of stay: " << arrivalDate.daysTo(departureDate) << " days\n" << endl;
+               nextBooking = new addBooking(person, arrivalDate, departureDate);
+               break;
 
        case 2: BL.listBookings();
            break;
@@ -246,6 +246,10 @@ int main(int argc, char *argv[])
        }
     }
     cout << "\nProgram ended ... BYE" << endl;
+
+    delete person;
+    delete  g1;
+    delete  g2;
 
     return a.exec();
 }

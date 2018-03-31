@@ -4,17 +4,9 @@ const double Booking::SINGLE_PPPN = 490.00;
 const double  Booking::SHARING_PPPN = 390.00;
 
 //Start class BookingList implementations
-BookingList::BookingList()
-{
-    QTextStream cout(stdout);
-    cout << "Default constructor for BookingList BL" << endl;
-}
+BookingList::BookingList(){}
 
-BookingList::~BookingList()
-{
-    QTextStream cout(stdout);
-    cout << "Destructor for BookingList BL" << endl;
-}
+BookingList::~BookingList(){}
 
 //start roomsAvailable
 /* Take the date, check the entire BookingList and count the number of rooms available on that date.
@@ -87,25 +79,47 @@ bool BookingList::vacancy(QDate a, QDate d)
 * ToString can use this pointer to output the details.
 */
 
-void BookingList::addBooking() //(Person c, QDate a, QDate d, Person g1, Person g2)
+Booking *BookingList::addBooking(Person c, QDate a, QDate d)
 {
     QTextStream cout(stdout);
+    bool dateValidity = false;
+    cout << "\naddBooking initiated ..\n" << endl;
+    Booking booking = new Booking(c, a, d);
 
-    cout << "\nBooking in progress ..\n" << endl;
-
-     //Confirm there is a vacancy
-
-    //check for vacancy
-    //if vacancy, continue to book
-    //else break;
-
-    //Check for vacancy
-    if (true){
-        cout << "\nWe have a suitable vacancy, continue booking .." << endl;
-    } else {
-        cout << "\nNO VACANCY ... exiting to MENU ..\n" << endl;
-        return;
+    //TEST: Confirm Arrival date before Departure date.
+    if (a.daysTo(d2)>0){
+        dateValidity = true;
     }
+    else {  //ERROR: arrival date is before the departure date.
+        cout << "\nError; Arrival date before Daparture date!\n"
+             << "Review the dates then restart the booking."
+             << endl;
+    }
+
+    //Confirm whether there is a vacancy
+    if (BookingList.vacancy(a, d)){
+        cout << "\nWe have a suitable vacancy, continue booking .." << endl;
+    }   else    {
+        cout << "\nNO ROOMS AVAILABLE ... \n" << endl;
+    }
+
+    //Single or Sharing booking?
+    if (isSharing()) {  //Create two guests
+
+        cout << "Adding a SHARING booking" << endl;
+        qslPerson = getGuestDetails(true); // bool guest; true=guest or false=contact person
+        g1 = new Person(qslPerson);
+        cout << "g1 toString.. " << g1->toString() << "\n" << endl;
+        qslPerson = getGuestDetails(true); // bool guest; true=guest or false=contact person
+        g2 = new Person(qslPerson);
+        cout << "g2 toString.. " << g2->toString() << "\n" << endl;
+
+    } else {    //Create the single guest
+        cout << "Adding a SINGLE booking" << endl;
+        qslPerson = getGuestDetails(true); // bool guest; true=guest or false=contact person
+        g1 = new Person(qslPerson);
+        cout << "g1 toString.. " << g1->toString() << "\n" << endl;
+    } //end if
 
     cout
     << "//now addBooking in QList\n"
@@ -181,6 +195,8 @@ bool Booking::booked(QDate d)
 Person::Person() {}
 
 Person::Person(QString n, QString c, QString e) : m_Name(n), m_ContactNo(c), m_Email(e) {}
+
+Person::Person(QStringList &qsL) : m_Name(qsL.takeFirst()), m_ContactNo(qsL.takeFirst()), m_Email(qsL.takeFirst()){}
 
 QString Person::toString(QString sep) const
 {
