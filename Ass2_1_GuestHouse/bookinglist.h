@@ -82,8 +82,7 @@ public:
    ~BookingList();                             /* A container of pointers must have a destructor! */
    int roomsAvailable();
    bool vacancy(QDate a, QDate d);
-   void addBooking();
-   //Booking* addBooking(Person c, QDate a, QDate d, Person *g1, Person *g2);
+   Booking *addBooking(Person c, QDate a, QDate d);
    void listBookings(); //List all Bookings.
    void deleteAll(); //Call at end of client pgm to prevent mem leaks
 

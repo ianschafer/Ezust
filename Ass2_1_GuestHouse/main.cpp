@@ -125,11 +125,7 @@ QDate getArrDate()
    } //end while
 
     cout << "Arrival Date: " << outDate << endl;
- Ongoing-dev-branch
     return arrDate;
-
-    return outDate;
- master
 
 }   //end getArrDate
 
@@ -168,11 +164,7 @@ QDate getDepDate()
    } //end while
 
     cout << "Departure Date: " << outDate << "\n" << endl;
-Ongoing-dev-branch
     return depDate;
-
-    return outDate;
-master
 
 }   //end getDepDate
 
@@ -228,41 +220,20 @@ int main(int argc, char *argv[])
     Person *person = new Person;
     Person *g1 = new Person;
     Person *g2 = new Person;
+    Booking *nextBooking = new Booking;
 
     QDate arrivalDate, departureDate;
     bool programRun = true;
     while(programRun) {
        switch(nextTask()) {
-Ongoing-dev-branch
        case 1: qslPerson = getGuestDetails(false); // bool guest; true=guest or false=contact person
                person = new Person(qslPerson);
                cout << "Contact person toString.. " << person->toString() << "\n" << endl;
                arrivalDate = getArrDate();
                departureDate = getDepDate();
                cout << "Period of stay: " << arrivalDate.daysTo(departureDate) << " days\n" << endl;
-            if (isSharing()) {  //Create two guests
-
-       case 1: getGuestDetails(true); // bool guest; true=guest or false=contact person
-               getArrDate();
-               getDepDate();
-            if (isSharing()) {
-master
-                cout << "Adding a SHARING booking" << endl;
-                qslPerson = getGuestDetails(true); // bool guest; true=guest or false=contact person
-                g1 = new Person(qslPerson);
-                cout << "g1 toString.. " << g1->toString() << "\n" << endl;
-                qslPerson = getGuestDetails(true); // bool guest; true=guest or false=contact person
-                g2 = new Person(qslPerson);
-                cout << "g2 toString.. " << g2->toString() << "\n" << endl;
-//              BL.addBooking();//(Person c, QDate a, QDate d, Person *g1, Person *g2);  //Add a single booking
-            } else {    //Create the single guest
-                cout << "Adding a SINGLE booking" << endl;
-                qslPerson = getGuestDetails(true); // bool guest; true=guest or false=contact person
-                g1 = new Person(qslPerson);
-                cout << "g1 toString.. " << g1->toString() << "\n" << endl;
-//              BL.addBooking();//(Person c, QDate a, QDate d, Person *g1, Person *g2);  //Add a sharing booking
-            }
-           break;
+               nextBooking = new addBooking(person, arrivalDate, departureDate);
+               break;
 
        case 2: BL.listBookings();
            break;
