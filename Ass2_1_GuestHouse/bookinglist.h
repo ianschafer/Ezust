@@ -6,13 +6,12 @@
 
 class   Person; //Forward class declaration
 class Booking {
-friend QTextStream& operator<<(QTextStream&, const Booking &);
+
+    friend QTextStream& operator<<(QTextStream&, const Booking &);
 
 public:
     Booking(){}
-    Booking (Person, QDate, QDate); //"class" ... could put Forward Class Declaration here
     Booking(const Booking&);
-    Booking(QStringList& qslBooking);
     const Booking& operator=(const Booking&);
     virtual ~Booking();
     virtual double rate();
@@ -21,6 +20,9 @@ public:
     static const double SINGLE_PPPN;
     static const double  SHARING_PPPN;
 
+protected:
+    Booking (Person, QDate, QDate); //"class" ... could put Forward Class Declaration here
+    Booking(QStringList& qslB);
 private:
     Person*  m_Contact;
     QDate   m_ArrivalDate;
@@ -69,13 +71,14 @@ class BookingList : public QList<Booking*> {
 public:
    static const int NO_OF_ROOMS = 10;    //Set fixed number of rooms
 
-   BookingList();
-   ~BookingList();                             /* A container of pointers must have a destructor! */
+   BookingList();   // Required because private constructors declared.
+   ~BookingList();  // A container of pointers must have a destructor!
    int roomsAvailable();
    bool vacancy(QDate a, QDate d);
-   Booking addBooking(Person, QDate, QDate, Person*, Person*);
+   Booking addBooking(Booking&, Person*, Person*);
    void listBookings(); //List all Bookings.
    void deleteAll(); //Call at end of client pgm to prevent mem leaks
+   QString toString(QString sep=",") const;
 
 private:
    BookingList(const BookingList&);
