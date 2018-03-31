@@ -4,16 +4,15 @@
 #include <QDate>
 #include <QTextStream>
 
-class   Person; //forward class declaration
-//start id=baseclassdef
+class   Person; //Forward class declaration
 class Booking {
 friend QTextStream& operator<<(QTextStream&, const Booking &);
 
 public:
     Booking(){}
-    Booking (Person, QDate, QDate); //"class" ... could put Forward decl. here
+    Booking (Person, QDate, QDate); //"class" ... could put Forward Class Declaration here
     Booking(const Booking&);
-    Booking(QStringList&);
+    Booking(QStringList& qslBooking);
     const Booking& operator=(const Booking&);
     virtual ~Booking();
     virtual double rate();
@@ -27,15 +26,12 @@ private:
     QDate   m_ArrivalDate;
     QDate   m_DepartureDate;
 };
-//end
-
-//start id=derivedclassdefs
 class Person : public Booking {
 
 public:
     Person();
     Person (QString, QString, QString);
-    Person(const Person& person);
+    Person(const Person& qslPerson);
     Person(QStringList& qsL);
     virtual QString toString(QString sep=",") const;
 
@@ -44,7 +40,6 @@ private:
    QString m_ContactNo;
    QString m_Email;
 };
-
 class Single : public Person {
 
 public:
@@ -57,7 +52,6 @@ public:
 private:
     Person  m_Guest;
 };
-
 class Sharing : public Person {
 
 public:
@@ -71,9 +65,6 @@ private:
    Person  m_Guest1;
    Person  m_Guest2;
 };
-//end
-
-//start id=QListdef
 class BookingList : public QList<Booking*> {
 public:
    static const int NO_OF_ROOMS = 10;    //Set fixed number of rooms
@@ -82,7 +73,7 @@ public:
    ~BookingList();                             /* A container of pointers must have a destructor! */
    int roomsAvailable();
    bool vacancy(QDate a, QDate d);
-   Booking *addBooking(Person c, QDate a, QDate d);
+   Booking addBooking(Person, QDate, QDate, Person*, Person*);
    void listBookings(); //List all Bookings.
    void deleteAll(); //Call at end of client pgm to prevent mem leaks
 
@@ -90,4 +81,4 @@ private:
    BookingList(const BookingList&);
    BookingList& operator=(const BookingList&);
 };
-//end
+
