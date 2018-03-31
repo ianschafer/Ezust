@@ -148,37 +148,33 @@ bool BookingList::vacancy(QDate a, QDate d){
 //call function roomsAvailable for each of the dates.
 
 }
-Booking BookingList::addBooking(Person c, QDate a, QDate d, Person *g1, Person *g2 ){
+Booking BookingList::addBooking(Booking &c, Person *g1, Person *g2){
 
     QTextStream cout(stdout);
 
     QStringList qslPerson;
-    Person *contactPerson;
-    Person *g1 = new Person;
-    Person *g2 = new Person;
-    QDate arrDate, depDate;
+   // Person *contactPerson;
 
     bool dateValidity = false;
     cout << "\naddBooking initiated ..\n" << endl;
-    //booking = new Booking(c, a, d);
 
     //TEST: Confirm Arrival date before Departure date.
-    if (arrDate.daysTo(depDate)>0){
-        dateValidity = true;
-        cout << "Period of stay: " << arrDate.daysTo(depDate) << " days\n" << endl;
-    }
-    else {  //ERROR: arrival date is before the departure date.
-        cout << "\nError; Arrival date before Daparture date!\n"
-             << "Review the dates then restart the booking."
-             << endl;
-    }
+//    if (c.m_ArrivalDate.daysTo(c.m_DepartureDate)>0){
+//        dateValidity = true;
+//        cout << "Period of stay: " << c.m_ArrivalDate.daysTo(c.m_DepartureDate) << " days\n" << endl;
+//    }
+//    else {  //ERROR: arrival date is before the departure date.
+//        cout << "\nError; Arrival date before Daparture date!\n"
+//             << "Review the dates then restart the booking."
+//             << endl;
+//    }
 
     //Confirm whether there is a vacancy
-    if (BookingList::vacancy(a, d)){
-        cout << "\nWe have a suitable vacancy, continue booking .." << endl;
-    }   else    {
-        cout << "\nNO ROOMS AVAILABLE ... \n" << endl;
-    }
+//    if (BookingList::vacancy(c.m_ArrivalDate, c.m_DepartureDate)){
+//        cout << "\nWe have a suitable vacancy, continue booking .." << endl;
+//    }   else    {
+//        cout << "\nNO ROOMS AVAILABLE ... \n" << endl;
+//    }
 
     //Single or Sharing booking?
     if (isSharing()) {  //Create two guests
@@ -202,37 +198,29 @@ Booking BookingList::addBooking(Person c, QDate a, QDate d, Person *g1, Person *
     << "//set bool booked for each day of stay except the departure day\n"
     << "//repeat booking details to confirm. toString\n" << endl;
 }
-void BookingList::listBookings(){
-
-    QTextStream cout(stdout);
-    cout << "\nList all bookings ..\n" << endl;
-}
 void BookingList::deleteAll(){
 
     //Delete all dynamic pointers created on the Heap.
 }
+QString BookingList::toString(QString sep) const
+{
+
+}
+
+//start Booking class implementations
 Booking::Booking(Person c, QDate a, QDate d) : m_Contact(&c), m_ArrivalDate(a), m_DepartureDate(d){
 
 }
-Booking::Booking(const Booking &){
-
-}
-Booking::Booking(QStringList& qslBooking){
-
-}
+Booking::Booking(const Booking&){}
+Booking::Booking(QStringList& qslB){}
 QTextStream& operator<<(QTextStream &s, const Booking &b){
 
 //    s << b.m_ArrivalDate << "/n" << b.m_DepartureDate << endl;
     s << "HELLO WORLD" << endl;
     return s;
 }
-Booking::~Booking(){
-
-    //cout << "Default destructor for BookingList BL" << endl;
-}
-double Booking::rate(){
-
-}
+Booking::~Booking(){}
+double Booking::rate(){}
 QString Booking::toString(QString sep) const {
 
     //cout << "Arrival date, Arrival date, Departure date " << endl;

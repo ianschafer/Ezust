@@ -143,6 +143,7 @@ int main(int argc, char *argv[])
     cout << "BL created ... \n" << endl;
 
     Booking *booking = new Booking;
+    Booking *newBooking = new Booking;
     Person *contactPerson = new Person;
     Person  guest1;
     Person  guest2;
@@ -163,11 +164,11 @@ int main(int argc, char *argv[])
                departureDate = getDepDate();
                //qslBooking << contactPerson << arrivalDate << departureDate;
                //booking  = new Booking(contactPerson, arrivalDate, departureDate);
-               //cout << "booking toString.. " << booking.toString() << "\n" << endl;
-               //booking = new addBooking(contactPerson, arrivalDate, departureDate, *guest1, *guest2);
+               cout << "booking toString.. " << booking->toString() << "\n" << endl;
+               //newBooking = BookingList::addBooking(booking, guest1, guest2);
                break;
 
-       case 2: BL.listBookings();
+       case 2: cout << "\nList all bookings..\n" << endl;
            break;
 
        case 3: programRun = false;   //QUIT
