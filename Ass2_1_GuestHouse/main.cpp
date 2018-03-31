@@ -125,7 +125,11 @@ QDate getArrDate()
    } //end while
 
     cout << "Arrival Date: " << outDate << endl;
+ Ongoing-dev-branch
     return arrDate;
+
+    return outDate;
+ master
 
 }   //end getArrDate
 
@@ -164,7 +168,11 @@ QDate getDepDate()
    } //end while
 
     cout << "Departure Date: " << outDate << "\n" << endl;
+Ongoing-dev-branch
     return depDate;
+
+    return outDate;
+master
 
 }   //end getDepDate
 
@@ -225,6 +233,7 @@ int main(int argc, char *argv[])
     bool programRun = true;
     while(programRun) {
        switch(nextTask()) {
+Ongoing-dev-branch
        case 1: qslPerson = getGuestDetails(false); // bool guest; true=guest or false=contact person
                person = new Person(qslPerson);
                cout << "Contact person toString.. " << person->toString() << "\n" << endl;
@@ -232,6 +241,12 @@ int main(int argc, char *argv[])
                departureDate = getDepDate();
                cout << "Period of stay: " << arrivalDate.daysTo(departureDate) << " days\n" << endl;
             if (isSharing()) {  //Create two guests
+
+       case 1: getGuestDetails(true); // bool guest; true=guest or false=contact person
+               getArrDate();
+               getDepDate();
+            if (isSharing()) {
+master
                 cout << "Adding a SHARING booking" << endl;
                 qslPerson = getGuestDetails(true); // bool guest; true=guest or false=contact person
                 g1 = new Person(qslPerson);
