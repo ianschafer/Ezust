@@ -8,6 +8,7 @@
 #ifndef BOOKINGLIST_H
 #define BOOKINGLIST_H
 #include <QCoreApplication>
+#include <QString>
 #include <QDate>
 #include "bookinglist.h"
 
@@ -39,114 +40,131 @@ mainMenu nextTask() {
 } //end lclmenu
 
 //start getGuestDetails
-QString getGuestDetails(bool guest) {
+QStringList getGuestDetails(bool guest) {
     QTextStream cout(stdout);
     QTextStream cin(stdin);
 
     QString responseName, responseContactNum, responseEmail;
-    QString strGuest;
     bool isGuest = guest;
 
     if (isGuest) {
     //get Guest's details
-    cout << "Enter Guest name: " << flush;
+    cout << "\nEnter Guest name: " << flush;
     responseName = cin.readLine();
 
     //get Guest's contact number
-    cout << "Enter Guest telephone number: " << flush;
+    cout << "Enter Guest Tel/Mobile number: " << flush;
     responseContactNum = cin.readLine();
 
     //get Guest's Email
-    cout << "Enter Guest's Email: " << flush;
+    cout << "Enter Guest Email: " << flush;
     responseEmail = cin.readLine();
 
-    Person *gP = new Person(responseName, responseContactNum, responseEmail);
+    QStringList qslgP;
+    qslgP << responseName << responseContactNum << responseEmail;
 
-    cout << "return from getGuestDetails() gP: " << gP->toString() << "\n" << endl;
-    strGuest = gP->toString();
+//    QString str_qslgP = qslgP.join(", ");
+//    cout << "qslgP joined.. " << str_qslgP << "\n" << endl;
 
-    delete gP;
-    return strGuest;
-
+    return qslgP;
     } else {
-        //get Contact Person's details
-        cout << "Enter Contact Person name: " << flush;
+        //get Contact Person details
+        cout << "\nEnter Contact Person name: " << flush;
         responseName = cin.readLine();
 
-        //get Contact's telephone number
-        cout << "Enter Contact Person's telephone number: " << flush;
+        //get Contact telephone number
+        cout << "Enter Contact Person Tel/Mobile number: " << flush;
         responseContactNum = cin.readLine();
 
         //get Contact Person's Email
         cout << "Enter Contact Person's Email: " << flush;
         responseEmail = cin.readLine();
 
-        Person *cP = new Person(responseName, responseContactNum, responseEmail);
+        QStringList qslcP;
+        qslcP << responseName << responseContactNum << responseEmail;
 
-        cout << "return from getGuestDetails() cP: " << cP->toString() << "\n" << endl;
-        strGuest = cP->toString();
+//        QString str_qslcP = qslcP.join(", ");
+//        cout << "qslgP joined.. " << str_qslcP << "\n" << endl;
 
-        delete cP;
-
-        return strGuest;
+        return qslcP;
       }// end if
 }   //end getGuestDetails
 
 //start getArrDate()
-QString getArrDate()
+QDate getArrDate()
 {
     QTextStream cout(stdout);
     QTextStream cin(stdin);
     QDate arrDate;
-    QString outDate;
-    int year, month, day;
+    QString outDate, day, month, year;
 
     //get Arrival date
     bool dateValid = false;
+    bool ok;
     while (!dateValid) {
-      cout << "\nEnter Arrival Date (yyyy,mm,dd): " << flush;
-      cin << year << month << day;
 
-      if (QDate::isValid(year, month, day)){
-          arrDate = QDate(year, month, day);
-          outDate = year + month + day;
+      cout << "Enter Arrival Day (dd): " << flush;
+      day = cin.readLine();
+      int intDay = day.toInt(&ok);
+
+      cout << "Month (mmd): " << flush;
+      month = cin.readLine();
+      int intMonth = month.toInt(&ok);
+
+      cout << "Year (yyyy): " << flush;
+      year = cin.readLine();
+      int intYear = year.toInt(&ok);
+
+      if (QDate::isValid(intYear, intMonth, intDay)){
+          arrDate = QDate(intYear, intMonth, intDay);
+          outDate = year + "/" + month + "/" + day;
           dateValid = true;
       } else {
-          cout << "Invalid Arrival date. Try again..\n" << endl;
+          cout << "\nInvalid Arrival date. Try again..\n" << endl;
       }
-    }
+   } //end while
 
-    cout << "arrDate: " << outDate << "\n" << endl;
-    return outDate;
+    cout << "Arrival Date: " << outDate << endl;
+    return arrDate;
 
 }   //end getArrDate
 
 //start gertDepDate()
-QString getDepDate()
+QDate getDepDate()
 {
     QTextStream cout(stdout);
     QTextStream cin(stdin);
     QDate depDate;
-    QString outDate;
-    int year, month, day;
+    QString outDate, day, month, year;
 
     //get Departure date
     bool dateValid = false;
+    bool ok;
     while (!dateValid) {
-      cout << "\nEnter Departure Date (yyyy,mm,dd): " << flush;
-      cin << year << month << day;
 
-      if (QDate::isValid(year, month, day)){
-          depDate = QDate(year, month, day);
-          outDate = year + month + day;
+      cout << "\nEnter Departure Day (dd): " << flush;
+      day = cin.readLine();
+      int intDay = day.toInt(&ok);
+
+      cout << "Month (mmd): " << flush;
+      month = cin.readLine();
+      int intMonth = month.toInt(&ok);
+
+      cout << "Year (yyyy): " << flush;
+      year = cin.readLine();
+      int intYear = year.toInt(&ok);
+
+      if (QDate::isValid(intYear, intMonth, intDay)){
+          depDate = QDate(intYear, intMonth, intDay);
+          outDate = year + "/" + month + "/" + day;
           dateValid = true;
       } else {
-          cout << "Invalid Departure date. Try again..\n" << endl;
+          cout << "\nInvalid Departure date. Try again..\n" << endl;
       }
-    }
+   } //end while
 
-    cout << "arrDate: " << outDate << "\n" << endl;
-    return outDate;
+    cout << "Departure Date: " << outDate << "\n" << endl;
+    return depDate;
 
 }   //end getDepDate
 
@@ -198,19 +216,36 @@ int main(int argc, char *argv[])
     BookingList BL;
     cout << "BL created ... \n" << endl;
 
-    QString strArrDepDates;
+    QStringList qslPerson;
+    Person *person = new Person;
+    Person *g1 = new Person;
+    Person *g2 = new Person;
+
+    QDate arrivalDate, departureDate;
     bool programRun = true;
     while(programRun) {
        switch(nextTask()) {
-       case 1: getGuestDetails(false); // bool guest; true=guest or false=contact person
-                getArrDate();
-                getDepDate();
-            if (isSharing()) {
+       case 1: qslPerson = getGuestDetails(false); // bool guest; true=guest or false=contact person
+               person = new Person(qslPerson);
+               cout << "Contact person toString.. " << person->toString() << "\n" << endl;
+               arrivalDate = getArrDate();
+               departureDate = getDepDate();
+               cout << "Period of stay: " << arrivalDate.daysTo(departureDate) << " days\n" << endl;
+            if (isSharing()) {  //Create two guests
                 cout << "Adding a SHARING booking" << endl;
-                BL.addBooking();//(Person c, QDate a, QDate d, Person *g1, Person *g2);  //Add a single booking
-            } else {
+                qslPerson = getGuestDetails(true); // bool guest; true=guest or false=contact person
+                g1 = new Person(qslPerson);
+                cout << "g1 toString.. " << g1->toString() << "\n" << endl;
+                qslPerson = getGuestDetails(true); // bool guest; true=guest or false=contact person
+                g2 = new Person(qslPerson);
+                cout << "g2 toString.. " << g2->toString() << "\n" << endl;
+//              BL.addBooking();//(Person c, QDate a, QDate d, Person *g1, Person *g2);  //Add a single booking
+            } else {    //Create the single guest
                 cout << "Adding a SINGLE booking" << endl;
-                BL.addBooking();//(Person c, QDate a, QDate d, Person *g1, Person *g2);  //Add a sharing booking
+                qslPerson = getGuestDetails(true); // bool guest; true=guest or false=contact person
+                g1 = new Person(qslPerson);
+                cout << "g1 toString.. " << g1->toString() << "\n" << endl;
+//              BL.addBooking();//(Person c, QDate a, QDate d, Person *g1, Person *g2);  //Add a sharing booking
             }
            break;
 
@@ -225,6 +260,10 @@ int main(int argc, char *argv[])
        }
     }
     cout << "\nProgram ended ... BYE" << endl;
+
+    delete person;
+    delete  g1;
+    delete  g2;
 
     return a.exec();
 }

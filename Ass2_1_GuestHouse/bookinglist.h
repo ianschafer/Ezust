@@ -36,7 +36,7 @@ public:
     Person();
     Person (QString, QString, QString);
     Person(const Person& person);
-    Person(QStringList& bookinglist);
+    Person(QStringList& qsL);
     virtual QString toString(QString sep=",") const;
 
 private:

@@ -182,9 +182,11 @@ Person::Person() {}
 
 Person::Person(QString n, QString c, QString e) : m_Name(n), m_ContactNo(c), m_Email(e) {}
 
+Person::Person(QStringList &qsL) : m_Name(qsL.takeFirst()), m_ContactNo(qsL.takeFirst()), m_Email(qsL.takeFirst()){}
+
 QString Person::toString(QString sep) const
 {
-    return  QString("%1%2%3%4%5%6").arg(m_Name).arg(sep).arg(m_ContactNo).arg(sep).arg(m_Email);
+    return  QString("%1%2%3%4%5").arg(m_Name).arg(sep).arg(m_ContactNo).arg(sep).arg(m_Email);
 }
 //end Person::toString
 
